@@ -1,0 +1,41 @@
+@use "./mixin.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans", sans-serif;
+  text-transform: capitalize;
+  text-decoration: none;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+.container {
+  padding-left: 200px;
+  padding-right: 200px;
+  @include pc {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+  @include tablet {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  @include mobile {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+.layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
