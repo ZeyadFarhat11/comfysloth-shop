@@ -3,7 +3,7 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBNVoQhJ0z07mBsGAUBFEno0zgMiVPO9Qo",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "comfy-sloth-furniture.firebaseapp.com",
   projectId: "comfy-sloth-furniture",
   storageBucket: "comfy-sloth-furniture.appspot.com",
