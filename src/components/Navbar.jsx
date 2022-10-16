@@ -5,7 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../imgs/logo.svg";
 import "../style/header.scss";
 
-export const Header = () => {
+export const Navbar = () => {
   const [menu, setMenu] = useState(false);
 
   return (
@@ -41,4 +41,3 @@ export const Header = () => {
     </>
   );
 };
-
