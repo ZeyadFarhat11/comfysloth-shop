@@ -1,20 +1,25 @@
 @mixin pc {
-    @media screen and (max-width: 1200px) {
-        @content
-    }
+  @media screen and (max-width: 1200px) {
+    @content;
+  }
 }
 @mixin laptop {
-    @media screen and (max-width: 992px) {
-        @content
-    }
+  @media screen and (max-width: 992px) {
+    @content;
+  }
 }
 @mixin tablet {
-    @media screen and (max-width: 768px) {
-        @content
-    }
+  @media screen and (max-width: 768px) {
+    @content;
+  }
 }
 @mixin mobile {
-    @media screen and (max-width: 420px) {
-        @content
-    }
+  @media screen and (max-width: 420px) {
+    @content;
+  }
+}
+@mixin grid($gap, $min) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(#{$min}px, 1fr));
+  gap: #{$gap}px;
 }

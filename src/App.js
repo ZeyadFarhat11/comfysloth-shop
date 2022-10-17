@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import { Navbar } from "./components/Navbar";
+import { useGlobalContext } from "./context";
 import About from "./pages/About";
 import Cart from "./pages/Cart";
 import Home from "./pages/Home";
@@ -9,6 +10,8 @@ import Products from "./pages/Products";
 import Signup from "./pages/Signup";
 
 function App() {
+  const { loading } = useGlobalContext();
+  if (loading) return <h1>Loading...</h1>;
   return (
     <>
       <Navbar />

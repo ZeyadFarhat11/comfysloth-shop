@@ -1,0 +1,21 @@
+@use "mixin" as *;
+@use "variables.scss" as *;
+
+#footer {
+  height: 80px;
+  background-color: $dark;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    text-align: center;
+    padding: 0 15px;
+    color: #fff;
+    span {
+      color: $main;
+    }
+    @include tablet {
+      font-size: 14px;
+    }
+  }
+}
