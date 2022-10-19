@@ -7,7 +7,7 @@ const url = "https://course-api.com/react-store-products";
 export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [err, setError] = useState(null);
 
   const fetchProducts = async () => {
