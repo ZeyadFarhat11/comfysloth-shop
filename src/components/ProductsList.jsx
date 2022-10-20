@@ -17,7 +17,9 @@ function ProductsList({
   const setProducts = () => {
     let cProducts = [...products];
 
-    return cProducts.map((product) => <BoxProduct {...product} />);
+    return cProducts.map((product) => (
+      <BoxProduct key={product.id} {...product} />
+    ));
   };
 
   return <>{setProducts()}</>;

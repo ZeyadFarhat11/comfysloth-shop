@@ -8,6 +8,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Product from "./pages/Product";
 import Products from "./pages/Products";
 import Signup from "./pages/Signup";
 
@@ -38,6 +39,7 @@ function App() {
             </RequireUser>
           }
         />
+        <Route path="products/:productId" element={<Product />} />
       </Routes>
       <Footer />
     </>
