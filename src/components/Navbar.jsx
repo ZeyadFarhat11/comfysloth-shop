@@ -1,12 +1,24 @@
+import { signOut } from "firebase/auth";
 import { useState } from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { GoThreeBars } from "react-icons/go";
 import { Link, NavLink } from "react-router-dom";
+import { useGlobalContext } from "../context";
+import { auth } from "../firebase";
 import logo from "../imgs/logo.svg";
 import "../style/header.scss";
 
 export const Navbar = () => {
   const [menu, setMenu] = useState(false);
+  const { user, setUser } = useGlobalContext();
+
+  const logout = () => {
+    setMenu(false);
+    signOut(auth).then(() => {
+      console.log(`signed out`);
+      setUser(null);
+    });
+  };
 
   return (
     <>
@@ -14,19 +26,43 @@ export const Navbar = () => {
         <img src={logo} alt="logo" className="logo" />
         <div className={`menu${menu ? " active" : ""}`}>
           <nav>
-            <NavLink to="/" end>
+            <NavLink to="/" end onClick={() => setMenu(false)}>
               home
             </NavLink>
-            <NavLink to="/about">about</NavLink>
-            <NavLink to="/products">products</NavLink>
+            <NavLink to="/about" onClick={() => setMenu(false)}>
+              about
+            </NavLink>
+            <NavLink to="/products" onClick={() => setMenu(false)}>
+              products
+            </NavLink>
+            {!!user && (
+              <NavLink to="/checkout" onClick={() => setMenu(false)}>
+                checkout
+              </NavLink>
+            )}
           </nav>
           <div className="btns">
-            <Link to="/cart" className="cart" data-items-count="5">
+            <NavLink
+              to="/cart"
+              className="cart"
+              data-items-count="5"
+              onClick={() => setMenu(false)}
+            >
               <FaShoppingCart />
-            </Link>
-            <Link className="login" to="/login">
-              login
-            </Link>
+            </NavLink>
+            {!user ? (
+              <Link
+                className="login"
+                to="/login"
+                onClick={() => setMenu(false)}
+              >
+                login
+              </Link>
+            ) : (
+              <button type="button" onClick={logout} className="logout">
+                logout
+              </button>
+            )}
           </div>
         </div>
         <button

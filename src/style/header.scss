@@ -102,6 +102,15 @@ header {
       background-color: transparent;
     }
   }
+  .logout {
+    @extend .login;
+    &:hover {
+      $red: rgb(145, 16, 16);
+      color: #fff;
+      background-color: $red;
+      border-color: $red;
+    }
+  }
   .cart {
     font-size: 25px;
     background-color: transparent;

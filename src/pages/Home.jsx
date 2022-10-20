@@ -42,7 +42,7 @@ function Home() {
             })}
         </div>
         <Link to="/products" className="btn">
-          add products
+          all products
         </Link>
       </div>
     </main>

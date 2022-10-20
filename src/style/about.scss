@@ -1,0 +1,48 @@
+@use "mixin.scss" as *;
+
+.about {
+  min-height: calc(100vh - 160px);
+  .story {
+    display: flex;
+    gap: 50px;
+    margin: 50px 0;
+    img {
+      max-height: 600px;
+      max-width: 100%;
+      border-radius: 5px;
+    }
+    .text {
+      padding-top: 50px;
+      text-align: left;
+      .main-title {
+        margin-bottom: 30px;
+        padding: 5px 0;
+        width: fit-content;
+        &::before {
+          left: 0;
+          transform: translateX(0);
+        }
+      }
+      p {
+        line-height: 2;
+        color: #617d98;
+      }
+    }
+    @include laptop {
+      flex-direction: column;
+      img {
+        width: 100%;
+        max-height: auto;
+      }
+    }
+    @include tablet {
+      .text {
+        padding: 0;
+        p {
+          font-size: 14px;
+          line-height: 1.8;
+        }
+      }
+    }
+  }
+}
