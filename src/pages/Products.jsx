@@ -1,274 +1,214 @@
-import React, { useRef, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import BoxProduct from "../components/BoxProduct";
 import ListProduct from "../components/ListProduct";
-import ProductsList from "../components/ProductsList";
 import { useGlobalContext } from "../context";
+import { FaList, FaCheck } from "react-icons/fa";
+import { BsGridFill } from "react-icons/bs";
 import "../style/products.scss";
 
 function Products() {
   const { products } = useGlobalContext();
-  const [searchParams, setSearchParams] = useSearchParams();
   const [isList, setIsList] = useState(false);
-  const priceLabel = useRef();
 
-  let fProducts = [...products];
-  const query = searchParams.get("query");
-  const category = searchParams.get("category");
-  const company = searchParams.get("company");
-  const color = searchParams.get("color");
-  const price = searchParams.get("price");
-  const sort = searchParams.get("sort");
-  const freeShipping = searchParams.get("free_shipping");
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState("");
+  const [company, setCompany] = useState("");
+  const [color, setColor] = useState("");
+  const [price, setPrice] = useState(3099);
+  const [sort, setSort] = useState("");
+  const [freeShipping, setFreeShipping] = useState(false);
 
-  if (query) {
-    fProducts = fProducts.filter((p) => p.name.includes(query));
-  }
-  if (category) {
-    fProducts = fProducts.filter((p) => p.category === category);
-  }
-  if (company) {
-    fProducts = fProducts.filter((p) => p.company === company);
-  }
-  if (color) {
-    fProducts = fProducts.filter((p) => p.colors.includes(color));
-  }
-  if (price) {
-    fProducts = fProducts.filter(
-      (p) => +p.price.toString().slice(0, -2) <= price
-    );
-  }
-  if (sort) {
-    if (sort === "heighest") {
-      fProducts.sort((a, b) => b.price - a.price);
-    } else if (sort === "asc") {
-      fProducts.sort((a, b) => a.name.localeCompare(b));
-    } else if (sort === "desc") {
-      fProducts.sort((a, b) => (a.name.localeCompare(b) === 1 ? -1 : 1));
-    }
-  } else {
-    fProducts.sort((a, b) => a.price - b.price);
-  }
+  const clear = () => {
+    setQuery("");
+    setCategory("");
+    setCompany("");
+    setColor("");
+    setPrice(3099);
+    setSort("lowest");
+    setFreeShipping(false);
+  };
+
+  console.log(query, category, company, color, price, sort, freeShipping);
+
+  // console.log(`Products Render`);
+
+  // let fProducts = [...products];
+  // const query = searchParams.get("query");
+  // const category = searchParams.get("category");
+  // const company = searchParams.get("company");
+  // const color = searchParams.get("color");
+  // const price = searchParams.get("price") || 3099;
+  // const sort = searchParams.get("sort");
+  // const freeShipping = searchParams.get("free_shipping");
+
+  // if (query) {
+  //   fProducts = fProducts.filter((p) => p.name.includes(query));
+  // }
+  // if (category) {
+  //   fProducts = fProducts.filter((p) => p.category === category);
+  // }
+  // if (company) {
+  //   fProducts = fProducts.filter((p) => p.company === company);
+  // }
+  // if (color) {
+  //   fProducts = fProducts.filter((p) => p.colors.includes(color));
+  // }
+  // if (price) {
+  //   fProducts = fProducts.filter(
+  //     (p) => +p.price.toString().slice(0, -2) <= price
+  //   );
+  // }
+  // if (sort) {
+  //   if (sort === "heighest") {
+  //     fProducts.sort((a, b) => b.price - a.price);
+  //   } else if (sort === "asc") {
+  //     fProducts.sort((a, b) => a.name.localeCompare(b));
+  //   } else if (sort === "desc") {
+  //     fProducts.sort((a, b) => (a.name.localeCompare(b) === 1 ? -1 : 1));
+  //   }
+  // } else {
+  //   fProducts.sort((a, b) => a.price - b.price);
+  // }
 
   return (
     <main className="products">
       <div className="page-path container">
         <Link>home</Link> / products
       </div>
-      <div className="products-container">
-        <div className="sort-tools">
-          <div className="search">
-            <input
-              type="text"
-              placeholder="Search"
-              defaultValue={query || ""}
-              onChange={(e) => {
-                if (!e.target.value.trim()) {
-                  searchParams.delete("query");
-                } else {
-                  searchParams.set("query", e.target.value);
-                }
-                setSearchParams(searchParams);
-              }}
-            />
-          </div>
-          <div className="section">
-            <h4>category</h4>
-            <ul className="categories">
-              <li
-                onClick={() => {
-                  searchParams.delete("category");
-                  setSearchParams(searchParams);
-                }}
-              >
-                all
-              </li>
-              <li
-                onClick={() => {
-                  searchParams.set("category", "office");
-                  setSearchParams(searchParams);
-                }}
-              >
-                office
-              </li>
-              <li
-                onClick={() => {
-                  searchParams.set("category", "living room");
-                  setSearchParams(searchParams);
-                }}
-              >
-                living room
-              </li>
-              <li
-                onClick={() => {
-                  searchParams.set("category", "kitchen");
-                  setSearchParams(searchParams);
-                }}
-              >
-                kitchen
-              </li>
-              <li
-                onClick={() => {
-                  searchParams.set("category", "bedroom");
-                  setSearchParams(searchParams);
-                }}
-              >
-                bedroom
-              </li>
-              <li
-                onClick={() => {
-                  searchParams.set("category", "dinking");
-                  setSearchParams(searchParams);
-                }}
-              >
-                dinking
-              </li>
-              <li
-                onClick={() => {
-                  searchParams.set("category", "kids");
-                  setSearchParams(searchParams);
-                }}
-              >
-                kids
-              </li>
-            </ul>
-          </div>
-          <div className="section">
-            <h4>company</h4>
-            <select
-              className="company-select"
-              defaultValue="all"
-              onChange={(e) => {
-                if (e.target.value === "all") {
-                  searchParams.delete("company");
-                } else {
-                  searchParams.set("company", e.target.value);
-                }
-                setSearchParams(searchParams);
-              }}
-            >
-              <option value="all">all</option>
-              <option value="marcos">marcos</option>
-              <option value="liddy">liddy</option>
-              <option value="ikea">ikea</option>
-              <option value="caressa">caressa</option>
-            </select>
-          </div>
-          <div className="section">
-            <h4>colors</h4>
-            <ul className="colors">
-              <li
-                onClick={() => {
-                  searchParams.delete("color");
-                  setSearchParams(searchParams);
-                }}
-              >
-                all
-              </li>
-              <li
-                className="color"
-                style={{ backgroundColor: "red" }}
-                onClick={() => {
-                  searchParams.set("color", "#ff0000");
-                  setSearchParams(searchParams);
-                }}
-              ></li>
-              <li
-                className="color"
-                style={{ backgroundColor: "green" }}
-                onClick={() => {
-                  searchParams.set("color", "#00ff00");
-                  setSearchParams(searchParams);
-                }}
-              ></li>
-              <li
-                className="color"
-                style={{ backgroundColor: "blue" }}
-                onClick={() => {
-                  searchParams.set("color", "#0000ff");
-                  setSearchParams(searchParams);
-                }}
-              ></li>
-              <li
-                className="color"
-                style={{ backgroundColor: "black" }}
-                onClick={() => {
-                  searchParams.set("color", "#000");
-                  setSearchParams(searchParams);
-                }}
-              ></li>
-              <li
-                className="color"
-                style={{ backgroundColor: "#ffb900" }}
-                onClick={() => {
-                  searchParams.set("color", "#ffb900");
-                  setSearchParams(searchParams);
-                }}
-              ></li>
-            </ul>
-          </div>
-          <div className="section">
-            <h4>price</h4>
-            <div className="price">
-              <label htmlFor="price-range" ref={priceLabel}>
-                ${Intl.NumberFormat().format(price || 3099)}
-              </label>
+      <div className="products-container container">
+        <div className="sort-tools-wrapper">
+          <div className="sort-tools">
+            <div className="search">
               <input
-                type="range"
-                id="price-range"
-                max="3099"
-                defaultValue={price || 3099}
-                onChange={(e) => {
-                  priceLabel.current.innerHTML = `$${new Intl.NumberFormat().format(
-                    e.target.value
-                  )}`;
-                  if (e.target.value === "3099") {
-                    searchParams.delete("price");
-                  } else {
-                    searchParams.set("price", e.target.value);
-                  }
-                  setSearchParams(searchParams);
-                }}
+                type="text"
+                placeholder="Search"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
               />
             </div>
-          </div>
-          <div className="free-shipping">
-            <span>free shipping</span>
-            <input
-              type="checkbox"
-              defaultChecked={!!freeShipping}
-              onChange={(e) => {
-                if (e.target.checked) {
-                  searchParams.set("free_shipping", "true");
-                } else {
-                  searchParams.delete("free_shipping");
-                }
-                setSearchParams(searchParams);
-              }}
-            />
+            <div className="section">
+              <h4>category</h4>
+              <ul className="categories">
+                <li onClick={() => setCategory("")}>all</li>
+                <li onClick={() => setCategory("office")}>office</li>
+                <li onClick={() => setCategory("living room")}>living room</li>
+                <li onClick={() => setCategory("kitchen")}>kitchen</li>
+                <li onClick={() => setCategory("bedroom")}>bedroom</li>
+                <li onClick={() => setCategory("dinking")}>dinking</li>
+                <li onClick={() => setCategory("kids")}>kids</li>
+              </ul>
+            </div>
+            <div className="section">
+              <h4>company</h4>
+              <select
+                className="company-select"
+                value={company}
+                onChange={(e) => setCompany(e.target.value)}
+              >
+                <option value="">all</option>
+                <option value="marcos">marcos</option>
+                <option value="liddy">liddy</option>
+                <option value="ikea">ikea</option>
+                <option value="caressa">caressa</option>
+              </select>
+            </div>
+            <div className="section">
+              <h4>colors</h4>
+              <ul className="colors">
+                <li
+                  onClick={(_) => setColor("")}
+                  className={!color ? "active" : ""}
+                >
+                  all
+                </li>
+                <li
+                  onClick={(_) => setColor("#ff0000")}
+                  className="color"
+                  style={{ backgroundColor: "#ff0000" }}
+                >
+                  {color === "#ff0000" && <FaCheck />}
+                </li>
+                <li
+                  onClick={(_) => setColor("#00ff00")}
+                  className="color"
+                  style={{ backgroundColor: "#00ff00" }}
+                >
+                  {color === "#00ff00" && <FaCheck />}
+                </li>
+                <li
+                  onClick={(_) => setColor("#0000ff")}
+                  className="color"
+                  style={{ backgroundColor: "#0000ff" }}
+                >
+                  {color === "#0000ff" && <FaCheck />}
+                </li>
+                <li
+                  onClick={(_) => setColor("#000")}
+                  className="color"
+                  style={{ backgroundColor: "#000" }}
+                >
+                  {color === "#000" && <FaCheck />}
+                </li>
+                <li
+                  onClick={(_) => setColor("#ffb900")}
+                  className="color"
+                  style={{ backgroundColor: "#ffb900" }}
+                >
+                  {color === "#ffb900" && <FaCheck />}
+                </li>
+              </ul>
+            </div>
+            <div className="section">
+              <h4>price</h4>
+              <div className="price">
+                <label htmlFor="price-range">
+                  ${Intl.NumberFormat().format(price)}
+                </label>
+                <input
+                  type="range"
+                  id="price-range"
+                  max="3099"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="free-shipping">
+              <span>free shipping</span>
+              <input
+                type="checkbox"
+                onChange={(e) => setFreeShipping(e.target.checked)}
+              />
+            </div>
+            <button className="clear" onClick={clear}>
+              clear filters
+            </button>
           </div>
         </div>
         <div className="products-wrapper">
           <div className="wrapper-head">
             <div className="btn-container">
-              <button type="button"></button>
-              <button type="button"></button>
+              <button
+                type="button"
+                className={!isList ? "active" : ""}
+                onClick={() => setIsList(false)}
+              >
+                <BsGridFill />
+              </button>
+              <button
+                type="button"
+                className={isList ? "active" : ""}
+                onClick={() => setIsList(true)}
+              >
+                <FaList />
+              </button>
             </div>
-            <p>{fProducts.length} products found</p>
+            <p>{} products found</p>
             <div className="line"></div>
             <div className="sort-by">
               <span>sort by</span>
-              <select
-                defaultValue={sort || "lowest"}
-                onChange={(e) => {
-                  if (e.target.value === "lowest") {
-                    searchParams.delete("sort");
-                  } else {
-                    searchParams.set("sort", e.target.value);
-                  }
-                  setSearchParams(searchParams);
-                }}
-              >
+              <select value={sort} onChange={(e) => setSort(e.target.value)}>
                 <option value="lowest">Price (Lowest)</option>
                 <option value="heighest">Price (Heighest)</option>
                 <option value="asc">name (A - Z)</option>
@@ -276,14 +216,14 @@ function Products() {
               </select>
             </div>
           </div>
-          <div className="wrapper-body">
-            {isList
+          <div className={!isList ? "wrapper-body grid" : "wrapper-body list"}>
+            {/* {isList
               ? fProducts.map((product) => (
                   <ListProduct key={product.id} {...product} />
                 ))
               : fProducts.map((product) => (
                   <BoxProduct key={product.id} {...product} />
-                ))}
+                ))} */}
           </div>
         </div>
       </div>

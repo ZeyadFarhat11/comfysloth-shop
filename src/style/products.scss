@@ -1,0 +1,168 @@
+@use "mixin.scss" as *;
+@use "variables.scss" as *;
+
+.products {
+  .products-container {
+    display: grid;
+    gap: 50px;
+    grid-template-columns: auto 1fr;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    .sort-tools-wrapper {
+      .sort-tools {
+        position: sticky;
+        top: 30px;
+        .search {
+          input {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 16px;
+            border: none;
+            background-color: #f1f5f8;
+            text-transform: none;
+            width: 100%;
+          }
+        }
+        .section {
+          margin: 20px 0;
+          h4 {
+            margin-bottom: 10px;
+          }
+          ul {
+            list-style: none;
+            li {
+              margin: 5px 0;
+              width: fit-content;
+            }
+          }
+          .categories {
+            li {
+              color: #617d98;
+              font-size: 15px;
+              cursor: pointer;
+              &.active {
+                border-bottom: 2px solid rgba(0, 0, 0, 0.8);
+              }
+              &:hover {
+                color: rgba(0, 0, 0, 0.8);
+              }
+            }
+          }
+          .company-select {
+            font-size: 16px;
+          }
+          .colors {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            li:not(.color) {
+              cursor: pointer;
+              &.active {
+                border-bottom: 2px solid rgba(0, 0, 0, 0.8);
+              }
+            }
+            .color {
+              cursor: pointer;
+              width: 15px;
+              height: 15px;
+              border-radius: 50%;
+              position: relative;
+              opacity: 0.5;
+              &:has(svg) {
+                opacity: 1;
+              }
+              svg {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                color: #fff;
+                font-size: 9px;
+              }
+            }
+          }
+          .price {
+            label {
+              display: block;
+            }
+          }
+        }
+        .free-shipping {
+          display: flex;
+          align-items: center;
+          gap: 30px;
+        }
+        .clear {
+          background-color: rgb(163, 0, 0);
+          border: none;
+          padding: 3px 15px;
+          border-radius: 5px;
+          font-size: 14px;
+          color: #fff;
+          cursor: pointer;
+          margin-top: 20px;
+          transition: 0.2s;
+          &:hover {
+            background-color: red;
+          }
+        }
+      }
+    }
+    .products-wrapper {
+      flex-grow: 1;
+      .wrapper-head {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding-bottom: 20px;
+        .btn-container {
+          display: flex;
+          gap: 5px;
+          button {
+            width: 27px;
+            height: 27px;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: transparent;
+            border: 1px solid rgba(0, 0, 0, 0.6);
+            border-radius: 5px;
+            cursor: pointer;
+            &.active {
+              background-color: $dark;
+              color: #fff;
+            }
+          }
+        }
+        p {
+          font-size: 15px;
+          color: $dark;
+        }
+        .line {
+          flex-grow: 1;
+          height: 1px;
+          background-color: $border;
+        }
+        .sort-by {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          select {
+            font-size: 15px;
+          }
+        }
+      }
+      .wrapper-body {
+        &.list {
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+        }
+        &.grid {
+          @include grid(20, 250);
+        }
+      }
+    }
+  }
+}
