@@ -29,47 +29,37 @@ function Products() {
     setFreeShipping(false);
   };
 
-  console.log(query, category, company, color, price, sort, freeShipping);
+  let fProducts = [...products];
 
-  // console.log(`Products Render`);
-
-  // let fProducts = [...products];
-  // const query = searchParams.get("query");
-  // const category = searchParams.get("category");
-  // const company = searchParams.get("company");
-  // const color = searchParams.get("color");
-  // const price = searchParams.get("price") || 3099;
-  // const sort = searchParams.get("sort");
-  // const freeShipping = searchParams.get("free_shipping");
-
-  // if (query) {
-  //   fProducts = fProducts.filter((p) => p.name.includes(query));
-  // }
-  // if (category) {
-  //   fProducts = fProducts.filter((p) => p.category === category);
-  // }
-  // if (company) {
-  //   fProducts = fProducts.filter((p) => p.company === company);
-  // }
-  // if (color) {
-  //   fProducts = fProducts.filter((p) => p.colors.includes(color));
-  // }
-  // if (price) {
-  //   fProducts = fProducts.filter(
-  //     (p) => +p.price.toString().slice(0, -2) <= price
-  //   );
-  // }
-  // if (sort) {
-  //   if (sort === "heighest") {
-  //     fProducts.sort((a, b) => b.price - a.price);
-  //   } else if (sort === "asc") {
-  //     fProducts.sort((a, b) => a.name.localeCompare(b));
-  //   } else if (sort === "desc") {
-  //     fProducts.sort((a, b) => (a.name.localeCompare(b) === 1 ? -1 : 1));
-  //   }
-  // } else {
-  //   fProducts.sort((a, b) => a.price - b.price);
-  // }
+  if (query) {
+    fProducts = fProducts.filter((p) => p.name.includes(query));
+  }
+  if (category) {
+    fProducts = fProducts.filter((p) => p.category === category);
+  }
+  if (company) {
+    fProducts = fProducts.filter((p) => p.company === company);
+  }
+  if (color) {
+    fProducts = fProducts.filter((p) => p.colors.includes(color));
+  }
+  if (price) {
+    fProducts = fProducts.filter(
+      (p) => +p.price.toString().slice(0, -2) <= price
+    );
+  }
+  if (sort === "lowest") {
+    fProducts.sort((a, b) => a.price - b.price);
+  } else if (sort === "heighest") {
+    fProducts.sort((a, b) => b.price - a.price);
+  } else if (sort === "asc") {
+    fProducts.sort((a, b) => a.name.localeCompare(b));
+  } else if (sort === "desc") {
+    fProducts.sort((a, b) => (a.name.localeCompare(b) === 1 ? -1 : 1));
+  }
+  if (freeShipping) {
+    fProducts = fProducts.filter((e) => e.shipping);
+  }
 
   return (
     <main className="products">
@@ -90,13 +80,48 @@ function Products() {
             <div className="section">
               <h4>category</h4>
               <ul className="categories">
-                <li onClick={() => setCategory("")}>all</li>
-                <li onClick={() => setCategory("office")}>office</li>
-                <li onClick={() => setCategory("living room")}>living room</li>
-                <li onClick={() => setCategory("kitchen")}>kitchen</li>
-                <li onClick={() => setCategory("bedroom")}>bedroom</li>
-                <li onClick={() => setCategory("dinking")}>dinking</li>
-                <li onClick={() => setCategory("kids")}>kids</li>
+                <li
+                  className={category === "" ? "active" : ""}
+                  onClick={() => setCategory("")}
+                >
+                  all
+                </li>
+                <li
+                  className={category === "office" ? "active" : ""}
+                  onClick={() => setCategory("office")}
+                >
+                  office
+                </li>
+                <li
+                  className={category === "living room" ? "active" : ""}
+                  onClick={() => setCategory("living room")}
+                >
+                  living room
+                </li>
+                <li
+                  className={category === "kitchen" ? "active" : ""}
+                  onClick={() => setCategory("kitchen")}
+                >
+                  kitchen
+                </li>
+                <li
+                  className={category === "bedroom" ? "active" : ""}
+                  onClick={() => setCategory("bedroom")}
+                >
+                  bedroom
+                </li>
+                <li
+                  className={category === "dinking" ? "active" : ""}
+                  onClick={() => setCategory("dinking")}
+                >
+                  dinking
+                </li>
+                <li
+                  className={category === "kids" ? "active" : ""}
+                  onClick={() => setCategory("kids")}
+                >
+                  kids
+                </li>
               </ul>
             </div>
             <div className="section">
@@ -175,9 +200,10 @@ function Products() {
               </div>
             </div>
             <div className="free-shipping">
-              <span>free shipping</span>
+              <label htmlFor="free-shipping">free shipping</label>
               <input
                 type="checkbox"
+                id="free-shipping"
                 onChange={(e) => setFreeShipping(e.target.checked)}
               />
             </div>
@@ -204,7 +230,7 @@ function Products() {
                 <FaList />
               </button>
             </div>
-            <p>{} products found</p>
+            <p>{fProducts.length} products found</p>
             <div className="line"></div>
             <div className="sort-by">
               <span>sort by</span>
@@ -217,13 +243,13 @@ function Products() {
             </div>
           </div>
           <div className={!isList ? "wrapper-body grid" : "wrapper-body list"}>
-            {/* {isList
+            {isList
               ? fProducts.map((product) => (
                   <ListProduct key={product.id} {...product} />
                 ))
               : fProducts.map((product) => (
                   <BoxProduct key={product.id} {...product} />
-                ))} */}
+                ))}
           </div>
         </div>
       </div>

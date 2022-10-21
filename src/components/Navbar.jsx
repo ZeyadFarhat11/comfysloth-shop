@@ -10,7 +10,7 @@ import "../style/header.scss";
 
 export const Navbar = () => {
   const [menu, setMenu] = useState(false);
-  const { user, setUser } = useGlobalContext();
+  const { user, setUser, cart } = useGlobalContext();
 
   const logout = () => {
     setMenu(false);
@@ -44,8 +44,8 @@ export const Navbar = () => {
           <div className="btns">
             <NavLink
               to="/cart"
-              className="cart"
-              data-items-count="5"
+              className={`cart${cart.length ? " contain" : ""}`}
+              data-items-count={cart.length}
               onClick={() => setMenu(false)}
             >
               <FaShoppingCart />

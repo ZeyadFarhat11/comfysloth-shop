@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import "../style/auth.scss";
 import { useGlobalContext } from "../context";
+import { doc, setDoc } from "firebase/firestore";
 
 function Signup() {
   const { setUser } = useGlobalContext();
@@ -24,6 +25,11 @@ function Signup() {
       const user = cred.user;
       await updateProfile(user, {
         displayName: name,
+      });
+      await setDoc(doc(db, "users", user.uid), {
+        cart: [],
+        uid: user.uid,
+        name: name,
       });
       setUser(user);
       setError(false);

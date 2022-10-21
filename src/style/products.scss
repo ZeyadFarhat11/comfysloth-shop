@@ -91,6 +91,10 @@
           display: flex;
           align-items: center;
           gap: 30px;
+          input,
+          label {
+            cursor: pointer;
+          }
         }
         .clear {
           background-color: rgb(163, 0, 0);
@@ -105,6 +109,9 @@
           &:hover {
             background-color: red;
           }
+        }
+        @include tablet {
+          width: fit-content;
         }
       }
     }
@@ -152,17 +159,103 @@
             font-size: 15px;
           }
         }
+        @include tablet {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0;
+          p {
+            margin: 20px 0;
+          }
+        }
       }
       .wrapper-body {
         &.list {
           display: flex;
           flex-direction: column;
           gap: 30px;
+          .list-product {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            gap: 50px;
+            img {
+              width: 350px;
+              border-radius: 5px;
+              height: 200px;
+              object-fit: cover;
+            }
+            .text {
+              h3 {
+                color: $dark;
+                font-size: 30px;
+              }
+              .price {
+                color: $main;
+                margin: 10px 0;
+              }
+              p {
+                font-size: 15px;
+                line-height: 1.5;
+              }
+              a {
+                display: inline-block;
+                color: #fff;
+                background-color: $main;
+                border-radius: 5px;
+                padding: 5px;
+                font-size: 12px;
+                letter-spacing: 1px;
+                margin-top: 20px;
+                border: 1px solid $main;
+                transition: 0.2s;
+                font-weight: 500;
+                &:hover {
+                  background-color: transparent;
+                  color: $main;
+                }
+              }
+            }
+            @include pc {
+              gap: 20px;
+              img {
+                width: 300px;
+                // height: 150px;
+              }
+            }
+            @include laptop {
+              grid-template-columns: 1fr;
+              img {
+                width: 100%;
+                // box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+              }
+              .text {
+                h3 {
+                  font-size: 25px;
+                }
+              }
+            }
+            @include tablet {
+              .text {
+                h3 {
+                  font-size: 20px;
+                }
+                p {
+                  font-size: 13px;
+                }
+                a {
+                  font-size: 10px;
+                }
+              }
+            }
+          }
         }
         &.grid {
           @include grid(20, 250);
         }
       }
+    }
+    @include tablet {
+      grid-template-columns: 1fr;
     }
   }
 }

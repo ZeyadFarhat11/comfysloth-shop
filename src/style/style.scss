@@ -15,11 +15,15 @@ html {
 }
 
 .container {
-  padding-left: 200px;
-  padding-right: 200px;
+  padding-left: 150px;
+  padding-right: 150px;
   @include pc {
     padding-left: 100px;
     padding-right: 100px;
+  }
+  @include laptop {
+    padding-left: 50px;
+    padding-right: 50px;
   }
   @include tablet {
     padding-left: 30px;

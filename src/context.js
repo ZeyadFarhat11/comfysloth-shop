@@ -1,5 +1,7 @@
 import axios from "axios";
+import { doc, onSnapshot } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
+import { db } from "./firebase";
 
 const Context = createContext();
 const url = "https://course-api.com/react-store-products";
@@ -8,7 +10,7 @@ export const AppProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [err, setError] = useState(null);
+  const [cart, setCart] = useState([]);
 
   const fetchProducts = async () => {
     try {
@@ -17,18 +19,40 @@ export const AppProvider = ({ children }) => {
       console.log("fetched success", response);
       setProducts(data);
     } catch (err) {
-      setError(err);
+      console.log(err);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
+    if (!user) return;
+
+    const unsub = onSnapshot(doc(db, "users", user.uid), (doc) => {
+      const { cart } = doc.data();
+      setCart(cart || []);
+    });
+
+    return () => unsub();
+  }, [user]);
+
+  useEffect(() => {
     fetchProducts();
   }, []);
 
   return (
-    <Context.Provider value={{ user, setUser, products, setProducts, loading }}>
+    <Context.Provider
+      value={{
+        user,
+        setUser,
+        products,
+        setProducts,
+        loading,
+        setLoading,
+        cart,
+        setCart,
+      }}
+    >
       {children}
     </Context.Provider>
   );

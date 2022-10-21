@@ -121,7 +121,7 @@ header {
     cursor: pointer;
     color: #222;
     position: relative;
-    &::before {
+    &.contain::before {
       content: attr(data-items-count);
       position: absolute;
       top: 0;
