@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Loading from "./components/Loading";
@@ -11,8 +12,13 @@ import Login from "./pages/Login";
 import Product from "./pages/Product";
 import Products from "./pages/Products";
 import Signup from "./pages/Signup";
+import AOS from "aos";
 
 function App() {
+  useEffect(() => {
+    AOS.init({ once: true, duration: 500 });
+  }, []);
+
   return (
     <>
       <Loading />

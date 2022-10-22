@@ -7,25 +7,34 @@ import landingSm from "../imgs/landing-sm.jpeg";
 import "../style/home.scss";
 
 function Home() {
-  const { products } = useGlobalContext();
+  const { products, loading } = useGlobalContext();
+
+  if (loading) {
+    return <></>;
+  }
 
   return (
     <main className="home">
       <div className="landing container">
         <div className="wrapper">
           <div className="text">
-            <h1>Design Your Comfort Zone</h1>
-            <p>
+            <h1 data-aos="fade-up">Design Your Comfort Zone</h1>
+            <p data-aos="fade-up" data-aos-delay="150">
               Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
               at sed omnis corporis doloremque possimus velit! Repudiandae nisi
               odit, aperiam odio ducimus, obcaecati libero et quia tempora
               excepturi quis alias?
             </p>
-            <Link to="/products" className="btn">
+            <Link
+              to="/products"
+              className="btn"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
               shop now
             </Link>
           </div>
-          <div className="imgs">
+          <div className="imgs" data-aos="fade-left">
             <img src={landingLg} alt="wood table" className="lg" />
             <img src={landingSm} alt="worker" className="sm" />
           </div>

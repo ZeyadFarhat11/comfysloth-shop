@@ -5,6 +5,7 @@ import App from "./App";
 import ScrollTop from "./components/ScrollTop";
 import { AppProvider } from "./context";
 import "./style/style.scss";
+import "aos/dist/aos.css";
 
 console.log(`from index`);
 
