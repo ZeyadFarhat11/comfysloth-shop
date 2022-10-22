@@ -10,13 +10,12 @@ import "../style/header.scss";
 
 export const Navbar = () => {
   const [menu, setMenu] = useState(false);
-  const { user, setUser, cart } = useGlobalContext();
+  const { user, cart } = useGlobalContext();
 
   const logout = () => {
     setMenu(false);
     signOut(auth).then(() => {
       console.log(`signed out`);
-      setUser(null);
     });
   };
 

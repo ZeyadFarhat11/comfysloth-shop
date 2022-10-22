@@ -15,7 +15,6 @@ function Login() {
     if (loading) return;
     setLoading(true);
     e.preventDefault();
-    console.log(e);
     const email = e.target.email.value;
     const password = e.target.password.value;
 

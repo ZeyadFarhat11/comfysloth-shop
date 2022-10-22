@@ -39,7 +39,7 @@ function App() {
             </RequireUser>
           }
         />
-        <Route path="products/:productId" element={<Product />} />
+        <Route path="/products/:productId" element={<Product />} />
       </Routes>
       <Footer />
     </>

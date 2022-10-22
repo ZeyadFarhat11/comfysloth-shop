@@ -14,6 +14,7 @@
   z-index: -1;
   transition: 0.2s linear;
   &.active {
+    transition: 0s;
     opacity: 1;
     z-index: 100;
   }

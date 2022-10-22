@@ -55,23 +55,6 @@
             rgb(67, 173, 235)
           );
         }
-        .loading-effect {
-          width: 25px;
-          height: 25px;
-          display: block;
-          border-radius: 50%;
-          border: 2px solid #fff;
-          border-top-color: transparent;
-          animation: animate 1s linear infinite;
-          @keyframes animate {
-            from {
-              rotate: 0deg;
-            }
-            to {
-              rotate: 360deg;
-            }
-          }
-        }
       }
     }
     p {

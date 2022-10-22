@@ -1,0 +1,60 @@
+@use "mixin.scss" as *;
+@use "variables.scss" as *;
+
+$border: 1px solid #ccc;
+
+.cart-container {
+  min-height: calc(100vh - 160px);
+  &.empty {
+    text-align: center;
+    h1 {
+      margin-bottom: 20px;
+      padding-top: 30px;
+      @include tablet {
+        font-size: 25px;
+      }
+    }
+  }
+  .cart-wrapper {
+    .table {
+      .head {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        text-align: center;
+        padding: 20px 0;
+        border-bottom: $border;
+        span {
+          font-size: 18px;
+          color: #16454b;
+        }
+      }
+      .body {
+        display: flex;
+        flex-direction: column;
+        // gap: 20px;
+        border-bottom: $border;
+        .cart-item {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr) auto;
+          text-align: center;
+          padding: 20px 0;
+          img {
+            width: 100px;
+            height: 60px;
+            border-radius: 5px;
+            object-fit: cover;
+          }
+          .item-info {
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
+    }
+    .btn-container {
+      padding: 20px 0;
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

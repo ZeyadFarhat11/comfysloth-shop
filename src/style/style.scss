@@ -18,18 +18,14 @@ html {
   padding-left: 150px;
   padding-right: 150px;
   @include pc {
-    padding-left: 100px;
-    padding-right: 100px;
-  }
-  @include laptop {
     padding-left: 50px;
     padding-right: 50px;
   }
-  @include tablet {
+  @include laptop {
     padding-left: 30px;
     padding-right: 30px;
   }
-  @include mobile {
+  @include tablet {
     padding-left: 15px;
     padding-right: 15px;
   }
@@ -57,11 +53,30 @@ html {
   font-weight: 300;
   letter-spacing: 1px;
   transition: 0.2s;
+  cursor: pointer;
   &:hover {
     background-color: #aa6f4c;
   }
   @include tablet {
     font-size: 14px;
+  }
+}
+
+.loading-effect {
+  width: 25px;
+  height: 25px;
+  display: block;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  animation: animate 1s linear infinite;
+  @keyframes animate {
+    from {
+      rotate: 0deg;
+    }
+    to {
+      rotate: 360deg;
+    }
   }
 }
 
@@ -136,6 +151,8 @@ html {
   @include tablet {
     height: 100px;
     line-height: 100px;
-    font-size: 25px;
+    font-size: 18px;
+    white-space: nowrap;
+    overflow: hidden;
   }
 }

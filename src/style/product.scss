@@ -1,0 +1,186 @@
+@use "mixin.scss" as *;
+@use "variables.scss" as *;
+
+.product {
+  .product-container {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    .product-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      .gallery {
+        $gap: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: $gap;
+        flex: 1;
+        @include tablet {
+          gap: 10px;
+        }
+        .main-img {
+          height: 400px;
+          @include tablet {
+            height: 300px;
+          }
+        }
+        img {
+          object-fit: cover;
+          width: 100%;
+          border-radius: 5px;
+        }
+        .thumbs {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: $gap;
+          img {
+            height: 75px;
+            cursor: pointer;
+            &.active {
+              border: 3px solid $main;
+            }
+          }
+          @include tablet {
+            gap: 5px;
+            img {
+              height: 50px;
+            }
+          }
+        }
+      }
+      .text {
+        width: 50%;
+        .title {
+          color: $dark;
+          font-size: 40px;
+        }
+        .stars {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          padding: 20px 0;
+          .stars-wrapper {
+            display: flex;
+            gap: 3px;
+            font-size: 20px;
+            color: #ffb900;
+          }
+        }
+        .price {
+          font-size: 20px;
+          color: $main;
+        }
+        .description {
+          line-height: 1.7;
+          color: #324d67;
+          padding: 20px 0;
+        }
+        .info {
+          width: 400px;
+          display: grid;
+          grid-template-columns: 50% 50%;
+          padding: 10px 0;
+          span:nth-child(1) {
+            font-weight: bold;
+          }
+          @include tablet {
+            width: 250px;
+            font-size: 14px;
+          }
+        }
+        .colors ul {
+          list-style: none;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          .color {
+            cursor: pointer;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            position: relative;
+            svg {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              color: #fff;
+              font-size: 12px;
+            }
+            @include tablet {
+              width: 18px;
+              height: 18px;
+              svg {
+                font-size: 10px;
+              }
+            }
+          }
+        }
+        hr {
+          margin: 10px 0;
+        }
+        .counter {
+          display: flex;
+          align-items: center;
+          color: $dark;
+          margin: 15px 0;
+          h2 {
+            font-size: 50px;
+            width: 120px;
+            text-align: center;
+            @include tablet {
+              font-size: 40px;
+              width: 90px;
+            }
+          }
+          button {
+            all: unset;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+          }
+        }
+        .submit-btn {
+          width: 200px;
+          text-align: center;
+          padding: 10px 0;
+          &:has(span) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          @include tablet {
+            width: 120px;
+            font-size: 12px;
+          }
+        }
+        .message {
+          padding-top: 10px;
+          text-transform: none;
+          @include tablet {
+            font-size: 12px;
+          }
+        }
+      }
+      @include laptop {
+        flex-direction: column;
+        align-items: stretch;
+        padding-top: 20px;
+        .text {
+          width: 100%;
+        }
+      }
+      @include tablet {
+        .text {
+          .title {
+            font-size: 30px;
+          }
+          .description {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+}

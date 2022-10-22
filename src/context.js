@@ -1,7 +1,9 @@
 import axios from "axios";
+import { onAuthStateChanged } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
 import { createContext, useContext, useEffect, useState } from "react";
-import { db } from "./firebase";
+import { useLocation, useNavigate } from "react-router-dom";
+import { auth, db } from "./firebase";
 
 const Context = createContext();
 const url = "https://course-api.com/react-store-products";
@@ -11,6 +13,19 @@ export const AppProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+
+      if (user && pathname === "/") {
+        navigate("/");
+      }
+    });
+    return () => unsub();
+  }, []);
 
   const fetchProducts = async () => {
     try {
