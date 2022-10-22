@@ -35,7 +35,7 @@ function Signup() {
       setError(false);
       navigate("/", { replace: true });
     } catch (err) {
-      console.log(err.code);
+      console.log(err);
       setError(err.code);
     } finally {
       setLoading(false);

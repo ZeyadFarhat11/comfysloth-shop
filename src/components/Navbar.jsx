@@ -14,9 +14,7 @@ export const Navbar = () => {
 
   const logout = () => {
     setMenu(false);
-    signOut(auth).then(() => {
-      console.log(`signed out`);
-    });
+    signOut(auth);
   };
 
   return (

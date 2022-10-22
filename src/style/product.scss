@@ -3,12 +3,13 @@
 
 .product {
   .product-container {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 80px;
+    padding-bottom: 80px;
     .product-wrapper {
       display: flex;
       align-items: center;
       gap: 50px;
+      padding-top: 20px;
       .gallery {
         $gap: 20px;
         display: flex;
@@ -166,7 +167,7 @@
       @include laptop {
         flex-direction: column;
         align-items: stretch;
-        padding-top: 20px;
+
         .text {
           width: 100%;
         }

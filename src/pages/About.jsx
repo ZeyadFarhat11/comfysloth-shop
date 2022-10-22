@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import aboutImg from "../imgs/about.jpeg";
+import aboutImg from "../imgs/landing-lg.jpeg";
 import "../style/about.scss";
 
 function About() {

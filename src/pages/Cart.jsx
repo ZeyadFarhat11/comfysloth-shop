@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
 import { useGlobalContext } from "../context";
 import { db } from "../firebase";
-import useCounter from "../hooks/useCounter";
+import { getCartTotal } from "../utilities";
 import "../style/cart.scss";
 
 function Cart() {
@@ -29,6 +29,7 @@ function Cart() {
     );
   }
 
+  const total = getCartTotal(cart);
   return (
     <main className="cart-container">
       <div className="page-path container">
@@ -49,12 +50,34 @@ function Cart() {
           </div>
         </div>
         <div className="btn-container">
-          <button type="button" className="btn">
+          <Link to="/products" className="btn">
             continue shopping
-          </button>
-          <button type="button" className="btn" onClick={clear}>
+          </Link>
+          <button type="button" className="btn clear" onClick={clear}>
             clear shopping cart
           </button>
+        </div>
+        <div className="checkout-info">
+          <div className="wrapper">
+            <div className="info">
+              <p className="subtotal">
+                <span>subtotal :</span>
+                <span>${total}</span>
+              </p>
+              <p>
+                <span>shipping fee :</span>
+                <span>$5.34</span>
+              </p>
+              <hr />
+              <h2 className="order-total">
+                <span>order total :</span>
+                <span>${+total + 5.34}</span>
+              </h2>
+            </div>
+            <Link to="/checkout" className="btn">
+              proceed to checkout
+            </Link>
+          </div>
         </div>
       </div>
     </main>

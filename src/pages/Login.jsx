@@ -20,7 +20,6 @@ function Login() {
 
     try {
       const cred = await signInWithEmailAndPassword(auth, email, password);
-      console.log(`logged in`, cred.user);
       setUser(cred.user);
       navigate("/", { replace: true });
     } catch (err) {

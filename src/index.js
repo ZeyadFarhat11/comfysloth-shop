@@ -6,6 +6,8 @@ import ScrollTop from "./components/ScrollTop";
 import { AppProvider } from "./context";
 import "./style/style.scss";
 
+console.log(`from index`);
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>

@@ -36,16 +36,15 @@ function Product() {
     setBtnLoading(true);
 
     try {
-      console.log("cart::", cart);
       const productObject = {
         quantity: count,
         color: currentColor,
         image: product.images[0].url,
         name: product.name,
         price: product.price,
+        stock: product.stock,
         id: randomId(),
       };
-      console.log(productObject);
       await updateDoc(doc(db, "users", user.uid), {
         cart: [...cart, productObject],
       });
@@ -149,7 +148,7 @@ function Product() {
             <p className="description">{product.description}</p>
             <div className="info">
               <span>Available :</span>
-              <span>{product.stock ? "in stock" : "out stock"}</span>
+              <span>{product.stock ? "in stock" : "out of stock"}</span>
             </div>
             <div className="info">
               <span>SKU :</span>
@@ -160,46 +159,56 @@ function Product() {
               <span>{product.company}</span>
             </div>
             <hr />
-            <div className="info colors">
-              <span>colors :</span>
-              <ul>
-                {product.colors.map((color, idx) => (
-                  <li
-                    key={idx}
-                    className={`color`}
-                    style={{ backgroundColor: color }}
-                    onClick={() => setCurrentColor(color)}
-                  >
-                    {currentColor === color && <FaCheck />}
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {!!product.stock && (
+              <>
+                <div className="info colors">
+                  <span>colors :</span>
+                  <ul>
+                    {product.colors.map((color, idx) => (
+                      <li
+                        key={idx}
+                        className={`color`}
+                        style={{ backgroundColor: color }}
+                        onClick={() => setCurrentColor(color)}
+                      >
+                        {currentColor === color && <FaCheck />}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-            <div className="counter">
-              <button type="button" onClick={() => dispatchCount(-1)}>
-                <FaMinus />
-              </button>
-              <h2>{count}</h2>
-              <button type="button" onClick={() => dispatchCount(1)}>
-                <FaPlus />
-              </button>
-            </div>
-            <button
-              className="btn submit-btn"
-              type="button"
-              onClick={addToCart}
-            >
-              {btnLoading ? (
-                <span className="loading-effect"></span>
-              ) : (
-                "add to cart"
-              )}
-            </button>
-            {message && (
-              <p className="message" style={message.style}>
-                {message.text}
-              </p>
+                <div className="counter">
+                  <button
+                    type="button"
+                    onClick={() => dispatchCount(-1, product.stock)}
+                  >
+                    <FaMinus />
+                  </button>
+                  <h2>{count}</h2>
+                  <button
+                    type="button"
+                    onClick={() => dispatchCount(1, product.stock)}
+                  >
+                    <FaPlus />
+                  </button>
+                </div>
+                <button
+                  className="btn submit-btn"
+                  type="button"
+                  onClick={addToCart}
+                >
+                  {btnLoading ? (
+                    <span className="loading-effect"></span>
+                  ) : (
+                    "add to cart"
+                  )}
+                </button>
+                {message && (
+                  <p className="message" style={message.style}>
+                    {message.text}
+                  </p>
+                )}
+              </>
             )}
           </div>
         </div>

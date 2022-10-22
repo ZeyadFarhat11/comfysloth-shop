@@ -16,6 +16,8 @@ $border: 1px solid #ccc;
     }
   }
   .cart-wrapper {
+    padding-top: 80px;
+    padding-bottom: 80px;
     .table {
       .head {
         display: grid;
@@ -27,17 +29,26 @@ $border: 1px solid #ccc;
           font-size: 18px;
           color: #16454b;
         }
+        @include tablet {
+          display: none;
+        }
       }
       .body {
         display: flex;
         flex-direction: column;
-        // gap: 20px;
         border-bottom: $border;
         .cart-item {
           display: grid;
-          grid-template-columns: repeat(4, 1fr) auto;
+          grid-template-columns: repeat(4, 1fr);
+          align-items: center;
           text-align: center;
           padding: 20px 0;
+          position: relative;
+
+          @include tablet {
+            grid-template-columns: 1fr 1fr auto;
+          }
+
           img {
             width: 100px;
             height: 60px;
@@ -47,6 +58,109 @@ $border: 1px solid #ccc;
           .item-info {
             display: flex;
             align-items: center;
+            gap: 10px;
+            h4 {
+              text-align: left;
+            }
+            .color-wrapper {
+              padding-top: 5px;
+              display: flex;
+              align-items: center;
+              gap: 10px;
+              .color {
+                display: block;
+                width: 20px;
+                height: 15px;
+                border-radius: 3px;
+              }
+            }
+            .price {
+              display: none;
+            }
+            @include tablet {
+              h4 {
+                font-size: 14px;
+              }
+              .color-wrapper {
+                font-size: 14px;
+                .color {
+                  width: 15px;
+                  height: 10px;
+                }
+              }
+              .price {
+                display: block;
+                text-align: left;
+                font-size: 14px;
+              }
+            }
+          }
+          .price {
+            color: $main;
+            font-weight: bold;
+            @include tablet {
+              display: none;
+            }
+          }
+          .quantity {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            button {
+              all: unset;
+              font-size: 20px;
+              cursor: pointer;
+              color: $dark;
+            }
+            h2 {
+              width: 60px;
+              font-size: 30px;
+              color: $dark;
+            }
+            @include tablet {
+              button {
+                font-size: 16px;
+              }
+              h2 {
+                width: 40px;
+                font-size: 25px;
+              }
+            }
+          }
+          .total {
+            @include tablet {
+              display: none;
+            }
+          }
+          .delete {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            color: #fff;
+            background-color: rgb(189, 0, 0);
+            border: none;
+            outline: none;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 14px;
+            line-height: 1;
+            cursor: pointer;
+            translate: 0 -50%;
+            transition: 0.2s;
+            display: none;
+            &:hover {
+              background-color: red;
+            }
+            @include tablet {
+              position: static;
+              display: block;
+              translate: 0 0;
+            }
+          }
+          &:hover {
+            .delete {
+              display: block;
+            }
           }
         }
       }
@@ -55,6 +169,59 @@ $border: 1px solid #ccc;
       padding: 20px 0;
       display: flex;
       justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      .clear {
+        background-color: $dark;
+        text-transform: capitalize;
+        font-size: 14px;
+        padding: 5px 10px;
+      }
+      @include tablet {
+        button,
+        a {
+          font-size: 13px !important;
+          padding: 5px 10px;
+        }
+      }
+    }
+    .checkout-info {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 30px;
+      .wrapper {
+        width: 400px;
+        max-width: 100%;
+        .info {
+          border: $border;
+          border-radius: 5px;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+
+          p,
+          h2 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+          h2 {
+            @include mobile {
+              font-size: 20px;
+            }
+          }
+          .subtotal {
+            font-weight: bold;
+          }
+        }
+        a {
+          margin-top: 10px;
+          width: 100%;
+          text-align: center;
+        }
+      }
     }
   }
 }
