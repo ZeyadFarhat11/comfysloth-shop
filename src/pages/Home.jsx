@@ -5,9 +5,17 @@ import { useGlobalContext } from "../context";
 import landingLg from "../imgs/landing-lg.jpeg";
 import landingSm from "../imgs/landing-sm.jpeg";
 import "../style/home.scss";
+import s1 from "../imgs/services1.svg";
+import s2 from "../imgs/services2.svg";
+import s3 from "../imgs/services3.svg";
 
 function Home() {
   const { products, loading } = useGlobalContext();
+
+  const handleNewsletterSubmit = (e) => {
+    e.preventDefault();
+    e.target.reset();
+  };
 
   if (loading) {
     return <></>;
@@ -53,6 +61,67 @@ function Home() {
         <Link to="/products" className="btn">
           all products
         </Link>
+      </div>
+
+      <div className="services container">
+        <div className="text">
+          <h1>Custom Furniture Built Only For You</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
+            dolorum debitis consectetur reprehenderit non aliquam voluptates
+            dolore aut vero consequuntur.
+          </p>
+        </div>
+        <div className="cards">
+          <div className="card">
+            <div className="icon">
+              <img src={s1} alt="icon" />
+            </div>
+            <h3>mission</h3>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum
+              velit autem unde numquam nisi
+            </p>
+          </div>
+          <div className="card">
+            <div className="icon">
+              <img src={s2} alt="icon" />
+            </div>
+            <h3>vision</h3>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum
+              velit autem unde numquam nisi
+            </p>
+          </div>
+          <div className="card">
+            <div className="icon">
+              <img src={s3} alt="icon" />
+            </div>
+            <h3>history</h3>
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptates, ea. Perferendis corrupti reiciendis nesciunt rerum
+              velit autem unde numquam nisi
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="newsletter container">
+        <div className="text">
+          <h1>Join our newsletter and get 20% off</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat
+            sint unde quaerat ratione soluta veniam provident adipisci cumque
+            eveniet tempore?
+          </p>
+        </div>
+        <form onSubmit={handleNewsletterSubmit}>
+          <input type="email" required placeholder="Enter Email" />
+          <button>subscribe</button>
+        </form>
       </div>
     </main>
   );

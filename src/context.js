@@ -1,7 +1,7 @@
 import axios from "axios";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, onSnapshot } from "firebase/firestore";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { auth, db } from "./firebase";
 
@@ -15,10 +15,12 @@ export const AppProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const authChanged = useRef(false);
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       setUser(user);
+      setLoading(false);
 
       if (user && pathname === "/") {
         navigate("/");
@@ -31,12 +33,16 @@ export const AppProvider = ({ children }) => {
     try {
       const response = await axios.get(url);
       const data = response.data;
-      console.log("fetched success", response);
       setProducts(data);
     } catch (err) {
       console.log(err);
     } finally {
-      setLoading(false);
+      if (!localStorage.getItem("comfysloth-auth")) {
+        setLoading(false);
+      }
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
     }
   };
 

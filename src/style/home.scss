@@ -83,4 +83,165 @@
       font-weight: 400;
     }
   }
+  .services {
+    background-color: rgba(171, 124, 96, 0.3);
+    padding-top: 50px;
+    padding-bottom: 50px;
+    margin-bottom: 150px;
+    .text {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      h1 {
+        color: $dark;
+        max-width: 300px;
+      }
+      p {
+        color: $main-text;
+        max-width: 50%;
+        font-size: 15px;
+      }
+      @include tablet {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        p {
+          max-width: none;
+        }
+        h1 {
+          max-width: none;
+        }
+      }
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 30px;
+      margin-top: 50px;
+      margin-bottom: -100px;
+      .card {
+        text-align: center;
+        background-color: rgb(170, 134, 113);
+        border-radius: 5px;
+        padding: 40px 20px;
+        .icon {
+          margin: 0 auto;
+          width: 65px;
+          height: 65px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          background-color: #fff;
+          img {
+            width: 40px;
+          }
+        }
+        h3 {
+          font-size: 25px;
+          margin: 20px 0;
+        }
+        p {
+          font-size: 15px;
+          line-height: 2;
+        }
+      }
+      @include laptop {
+        grid-template-columns: 1fr 1fr;
+      }
+      @include media(600px) {
+        grid-template-columns: 1fr;
+        .card {
+          .icon {
+            width: 55px;
+            height: 55px;
+            img {
+              width: 30px;
+            }
+          }
+          h3 {
+            font-size: 22px;
+          }
+          p {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+  .newsletter {
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .text {
+      max-width: 50%;
+      h1 {
+        color: $dark;
+      }
+      p {
+        color: #617d98;
+        font-size: 15px;
+        line-height: 2;
+        margin-top: 30px;
+      }
+    }
+    form {
+      width: min(400px, 100%);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      input {
+        padding: 10px;
+        border-radius: 5px 0 0 5px;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        border-right: none;
+        outline: none;
+        font-size: 16px;
+        text-transform: none;
+      }
+      button {
+        color: #fff;
+        background-color: $main;
+        border-radius: 0 5px 5px 0;
+        border: none;
+        outline: none;
+        font-size: 16px;
+        padding: 10px;
+        transition: 0.3s;
+        cursor: pointer;
+        &:hover {
+          background-color: rgb(136, 88, 60);
+        }
+      }
+    }
+    @include laptop {
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+      .text {
+        max-width: none;
+        text-align: center;
+        p {
+          margin-top: 20px;
+        }
+      }
+    }
+    @include tablet {
+      .text {
+        h1 {
+          font-size: 25px;
+        }
+        p {
+          font-size: 14px;
+        }
+      }
+      form {
+        input,
+        button {
+          font-size: 15px;
+          padding: 7px;
+        }
+      }
+    }
+  }
 }

@@ -21,6 +21,7 @@ function Login() {
     try {
       const cred = await signInWithEmailAndPassword(auth, email, password);
       setUser(cred.user);
+      localStorage.setItem("comfysloth-auth", "true");
       navigate("/", { replace: true });
     } catch (err) {
       setError(err.code);

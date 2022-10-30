@@ -13,6 +13,7 @@ export const Navbar = () => {
   const { user, cart } = useGlobalContext();
 
   const logout = () => {
+    localStorage.removeItem("comfysloth-auth");
     setMenu(false);
     signOut(auth);
   };

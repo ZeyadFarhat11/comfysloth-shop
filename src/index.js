@@ -7,8 +7,6 @@ import { AppProvider } from "./context";
 import "./style/style.scss";
 import "aos/dist/aos.css";
 
-console.log(`from index`);
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>

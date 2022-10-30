@@ -33,6 +33,7 @@ function Signup() {
       });
       setUser(user);
       setError(false);
+      localStorage.setItem("comfysloth-auth", "true");
       navigate("/", { replace: true });
     } catch (err) {
       console.log(err);
