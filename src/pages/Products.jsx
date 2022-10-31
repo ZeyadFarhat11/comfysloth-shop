@@ -1,15 +1,21 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import BoxProduct from "../components/BoxProduct";
 import ListProduct from "../components/ListProduct";
 import { useGlobalContext } from "../context";
 import { FaList, FaCheck } from "react-icons/fa";
+import { TbArrowsSort } from "react-icons/tb";
 import { BsGridFill } from "react-icons/bs";
 import "../style/products.scss";
+import { useEffect } from "react";
 
 function Products() {
   const { products } = useGlobalContext();
   const [isList, setIsList] = useState(false);
+  const [sortOpen, setSortOpen] = useState(false);
+  const [sortBtnActive, setSortBtnActive] = useState(false);
+
+  const productsWrapperRef = useRef();
 
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
@@ -18,6 +24,22 @@ function Products() {
   const [price, setPrice] = useState(3099);
   const [sort, setSort] = useState("");
   const [freeShipping, setFreeShipping] = useState(false);
+
+  useEffect(() => {
+    const eventFunc = (e) => {
+      if (
+        window.scrollY > productsWrapperRef.current.offsetTop ||
+        fProducts.length < 4
+      ) {
+        setSortBtnActive(true);
+      } else {
+        setSortBtnActive(false);
+      }
+    };
+    window.addEventListener("scroll", eventFunc);
+
+    return () => window.removeEventListener("scroll", eventFunc);
+  });
 
   const clear = () => {
     setQuery("");
@@ -63,11 +85,23 @@ function Products() {
 
   return (
     <main className="products">
+      {sortOpen ? (
+        <div className="overlay" onClick={() => setSortOpen(false)}></div>
+      ) : null}
       <div className="page-path container">
         <Link>home</Link> / products
       </div>
       <div className="products-container container">
-        <div className="sort-tools-wrapper">
+        <button
+          className={`toggle-sort-tools${
+            sortBtnActive || sortOpen ? " active" : ""
+          }${sortOpen ? " sort-open" : ""}`}
+          type="button"
+          onClick={() => setSortOpen((e) => !e)}
+        >
+          <TbArrowsSort />
+        </button>
+        <div className={`sort-tools-wrapper${sortOpen ? " active" : ""}`}>
           <div className="sort-tools">
             <div className="search">
               <input
@@ -212,7 +246,7 @@ function Products() {
             </button>
           </div>
         </div>
-        <div className="products-wrapper">
+        <div className="products-wrapper" ref={productsWrapperRef}>
           <div className="wrapper-head">
             <div className="btn-container">
               <button

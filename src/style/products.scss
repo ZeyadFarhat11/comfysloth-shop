@@ -2,13 +2,50 @@
 @use "variables.scss" as *;
 
 .products {
+  min-height: calc(100vh - 160px);
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 8;
+  }
   .products-container {
     display: grid;
     gap: 50px;
     grid-template-columns: auto 1fr;
     padding-top: 50px;
     padding-bottom: 50px;
+    .toggle-sort-tools {
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      color: #fff;
+      background-color: $main;
+      border: none;
+      outline: none;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      border-radius: 5px;
+      z-index: -1;
+      opacity: 0;
+      transition: 0.3s;
+      cursor: pointer;
+      @include tablet {
+        &.active {
+          z-index: 15;
+          opacity: 1;
+        }
+        &.sort-open {
+          right: 270px;
+        }
+      }
+    }
     .sort-tools-wrapper {
+      z-index: 20;
       .sort-tools {
         position: sticky;
         top: 30px;
@@ -112,6 +149,18 @@
         }
         @include tablet {
           width: fit-content;
+        }
+      }
+      @include tablet {
+        position: fixed;
+        right: -100%;
+        top: 0;
+        height: 100vh;
+        background-color: #fff;
+        padding: 0 20px;
+        transition: 0.5s;
+        &.active {
+          right: 0;
         }
       }
     }
